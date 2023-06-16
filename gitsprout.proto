@@ -1,0 +1,26 @@
+syntax = "proto3";
+package gitsprout;
+
+service GitSprout {
+    rpc CreateRepository (RepositoryRequest) returns (RepositoryResponse);
+    rpc DeleteRepository (RepositoryRequest) returns (RepositoryRequest);
+    rpc AddSshKey (SshKeyRequest) returns (SshKeyResponse);
+    rpc RemoveSshKey (SshKeyRequest) returns (SshKeyRequest);
+}
+
+message RepositoryRequest {
+    string repository_path = 1;
+}
+
+message RepositoryResponse {
+    string message = 1;
+}
+
+message SshKeyRequest {
+    string ssh_key = 1;
+    string user_id = 2;
+}
+
+message SshKeyResponse {
+    string message = 1;
+}
