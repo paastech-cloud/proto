@@ -3,7 +3,7 @@ package gitsprout;
 
 service GitSprout {
     rpc CreateRepository (RepositoryRequest) returns (RepositoryResponse);
-    rpc DeleteRepository (RepositoryRequest) returns (RepositoryRequest);
+    rpc DeleteRepository (RepositoryRequest) returns (RepositoryResponse);
 }
 
 message RepositoryRequest {
