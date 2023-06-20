@@ -1,5 +1,5 @@
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    tonic_build::compile_protos("src/gitsprout.proto")?;
+    tonic_build::compile_protos("proto/git-repo-manager.proto")?;
 
     Ok(())
 }
