@@ -1,0 +1,13 @@
+[package]
+name = "paastech-proto"
+description = "Protobuf definitions for all paastech gRPC services."
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+tonic = "0.9"
+prost = "0.11"
+
+[build-dependencies]
+tonic-build = "0.9"

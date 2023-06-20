@@ -1,9 +1,12 @@
 syntax = "proto3";
 package gitsprout;
 
+/* GitSprout service to interact with with the
+ * internal git server. */
 service GitSprout {
     rpc CreateRepository (RepositoryRequest) returns (RepositoryResponse);
     rpc DeleteRepository (RepositoryRequest) returns (RepositoryRequest);
+
     rpc AddSshKey (SshKeyRequest) returns (SshKeyResponse);
     rpc RemoveSshKey (SshKeyRequest) returns (SshKeyRequest);
 }
