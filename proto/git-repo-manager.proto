@@ -1,7 +1,7 @@
 syntax = "proto3";
-package gitsprout;
+package gitrepomanager;
 
-service GitSprout {
+service GitRepoManager {
     rpc CreateRepository (RepositoryRequest) returns (RepositoryResponse);
     rpc DeleteRepository (RepositoryRequest) returns (RepositoryResponse);
 }

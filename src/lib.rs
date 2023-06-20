@@ -1,3 +1,3 @@
-pub mod gitsprout {
-    tonic::include_proto!("gitsprout");
+pub mod gitrepomanager {
+    tonic::include_proto!("gitrepomanager");
 }
