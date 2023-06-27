@@ -29,6 +29,8 @@ Alternatively, you can specify a specific version using a commit hash:
 paastech-proto = { git = "https://github.com/paastech-cloud/proto.git", rev = "1520c87" }
 ```
 
+> ℹ️ Note that using `rev` is more stable, because with `branch` the code can change at any time.
+
 3. That's it!! :tada:  
    You're all set to use the PaaSTech Proto Definitions in your project.  
    For example, you can import a specific proto package using the `use` keyword:
