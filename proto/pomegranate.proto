@@ -2,23 +2,23 @@ syntax = "proto3";
 package pomegranate;
 
 message StartDeploymentRequest {
-  string project_uuid = 1;
+  string deployment_uuid = 1;
 }
 
 message RestartDeploymentRequest {
-  string project_uuid = 1;
+  string deployment_uuid = 1;
 }
 
 message DeleteDeploymentRequest {
-  string project_uuid = 1;
+  string deployment_uuid = 1;
 }
 
 message StopDeploymentRequest {
-  string project_uuid = 1;
+  string deployment_uuid = 1;
 }
 
 message DeploymentStatusRequest {
-  string project_uuid = 1;
+  string deployment_uuid = 1;
 }
 
 message ApplyConfigDeploymentRequest {
