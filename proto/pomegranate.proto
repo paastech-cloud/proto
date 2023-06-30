@@ -22,7 +22,8 @@ message DeploymentStatusRequest {
 }
 
 message ApplyConfigDeploymentRequest {
-  string config = 1;
+  string deployment_uuid = 1;
+  string config = 2;
 }
 
 message ResponseMessage {
