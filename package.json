@@ -1,17 +1,14 @@
 {
-  "dependencies": {
-    "@grpc/proto-loader": "^0.7.7",
-    "grpc": "^1.24.11",
-    "grpc-tools": "^1.12.4"
-  },
-  "scripts": {
-    "build": "grpc_tools_node_protoc --proto_path=../proto/ --js_out=import_style=commonjs,binary:dist --grpc_out=grpc_js:dist --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` ../proto/git-repo-manager.proto ../proto/pomegranate.proto"
-  },
   "name": "paastech-proto",
   "version": "1.0.0",
   "description": "Protobuf definitions for all paastech gRPC services.",
-  "main": "index.js",
-  "devDependencies": {},
+  "scripts": {
+    "generate:proto": "grpc_tools_node_protoc --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts --ts_proto_out=./types ./proto/*.proto"
+  },
+  "dependencies": {
+    "grpc-tools": "^1.12.4",
+    "ts-proto": "^1.150.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/paastech-cloud/proto.git"
