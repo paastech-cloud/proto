@@ -12,6 +12,8 @@ Using the PaaSTech Proto Definitions is straightforward.
 
 Just follow these simple steps:
 
+### With Rust
+
 1. Open your `Cargo.toml` file in your project.
 2. Under the `[dependencies]` section, add the following line:
 
