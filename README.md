@@ -12,6 +12,20 @@ Using the PaaSTech Proto Definitions is straightforward.
 
 Just follow these simple steps:
 
+### With JS/TS
+
+1. Open your `package.json` file in your project.
+2. Under the `dependencies` section, add the following line:
+
+```json
+"dependencies": {
+  // ...
+  "paastech-proto": "github:paastech-cloud/proto#main"
+}
+```
+
+you will both find .proto files and ts type definitions in the `node_modules/paastech-proto` folder.
+
 ### With Rust
 
 1. Open your `Cargo.toml` file in your project.
@@ -52,8 +66,9 @@ To contribute a new proto definition, please follow these steps:
 2. In the `proto/` directory, add your `.proto` file.
 3. In the `src/lib.rs` file, add a new module with the name of your proto package.  
    Make sure to include the macro `tonic::include_proto!()` in this module.
-4. In the `build.rs` file, add a line to compile your proto file using the `tonic_build::compile_protos()` macro.  
+4. In the `build.rs` file, add a line to compile your proto file using the `tonic_build::compile_protos()` macro.
    Specify the path to your proto file in the function call.
-5. Create a pull request with your changes.
+5. Run `npm run generate:proto` to generate the TS type definitions.
+6. Create a pull request with your changes.
 
 Once your pull request is reviewed and merged, your proto definition will be available for others to use.
