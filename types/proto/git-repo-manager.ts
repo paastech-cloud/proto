@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 export const protobufPackage = "gitrepomanager";
 
 export interface RepositoryRequest {
-  repositoryPath: string;
+  repository_path: string;
 }
 
 export interface RepositoryResponse {

@@ -5,23 +5,23 @@ import { Observable } from "rxjs";
 export const protobufPackage = "pomegranate";
 
 export interface StartDeploymentRequest {
-  deploymentUuid: string;
+  deployment_uuid: string;
 }
 
 export interface RestartDeploymentRequest {
-  deploymentUuid: string;
+  deployment_uuid: string;
 }
 
 export interface DeleteDeploymentRequest {
-  deploymentUuid: string;
+  deployment_uuid: string;
 }
 
 export interface StopDeploymentRequest {
-  deploymentUuid: string;
+  deployment_uuid: string;
 }
 
 export interface DeploymentStatusRequest {
-  deploymentUuid: string;
+  deployment_uuid: string;
 }
 
 export interface ApplyConfigDeploymentRequest {
