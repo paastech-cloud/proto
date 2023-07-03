@@ -24,7 +24,7 @@ Just follow these simple steps:
 }
 ```
 
-you will both find .proto files and ts type definitions in the `node_modules/paastech-proto` folder.
+You will both find `.proto` files and TS type definitions in the `node_modules/paastech-proto/` folder.
 
 ### With Rust
 
