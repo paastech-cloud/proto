@@ -25,11 +25,17 @@ export interface DeploymentStatusRequest {
 }
 
 export interface ApplyConfigDeploymentRequest {
+  deployment_uuid: string;
   config: string;
 }
 
 export interface ResponseMessage {
   message: string;
+}
+
+export interface ResponseMessageStatus {
+  message: string;
+  status: string;
 }
 
 export const POMEGRANATE_PACKAGE_NAME = "pomegranate";
@@ -43,7 +49,7 @@ export interface PomegranateClient {
 
   stopDeployment(request: StopDeploymentRequest): Observable<ResponseMessage>;
 
-  deploymentStatus(request: DeploymentStatusRequest): Observable<ResponseMessage>;
+  deploymentStatus(request: DeploymentStatusRequest): Observable<ResponseMessageStatus>;
 
   applyConfigDeployment(request: ApplyConfigDeploymentRequest): Observable<ResponseMessage>;
 }
@@ -67,7 +73,7 @@ export interface PomegranateController {
 
   deploymentStatus(
     request: DeploymentStatusRequest,
-  ): Promise<ResponseMessage> | Observable<ResponseMessage> | ResponseMessage;
+  ): Promise<ResponseMessageStatus> | Observable<ResponseMessageStatus> | ResponseMessageStatus;
 
   applyConfigDeployment(
     request: ApplyConfigDeploymentRequest,
