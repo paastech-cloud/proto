@@ -1,0 +1,25 @@
+{
+  "name": "paastech-proto",
+  "version": "1.0.0",
+  "description": "Protobuf definitions for all paastech gRPC services.",
+  "scripts": {
+    "generate:proto": "grpc_tools_node_protoc --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts --ts_proto_out=./types ./proto/*.proto --ts_proto_opt=nestJs=true --ts_proto_opt=snakeToCamel=false"
+  },
+  "dependencies": {
+    "grpc-tools": "^1.12.4",
+    "ts-proto": "^1.150.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paastech-cloud/proto.git"
+  },
+  "keywords": [
+    "proto"
+  ],
+  "author": "paastech-cloud",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paastech-cloud/proto/issues"
+  },
+  "homepage": "https://github.com/paastech-cloud/proto#readme"
+}
