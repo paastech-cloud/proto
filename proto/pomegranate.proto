@@ -19,7 +19,6 @@ message StopDeploymentRequest {
 
 message DeploymentStatusRequest {
   string deployment_uuid = 1;
-  string status = 2;
 }
 
 message ApplyConfigDeploymentRequest {
@@ -31,11 +30,16 @@ message ResponseMessage {
   string message = 1;
 }
 
+message ResponseMessageStatus {
+  string message = 1;
+  string status = 2;
+}
+
 service Pomegranate {
   rpc StartDeployment(StartDeploymentRequest) returns (ResponseMessage) {}
   rpc RestartDeployment(RestartDeploymentRequest) returns (ResponseMessage) {}
   rpc DeleteDeployment(DeleteDeploymentRequest) returns (ResponseMessage) {}
   rpc StopDeployment(StopDeploymentRequest) returns (ResponseMessage) {}
-  rpc DeploymentStatus(DeploymentStatusRequest) returns (ResponseMessage) {}
+  rpc DeploymentStatus(DeploymentStatusRequest) returns (ResponseMessageStatus) {}
   rpc ApplyConfigDeployment(ApplyConfigDeploymentRequest) returns (ResponseMessage) {}
 }
