@@ -57,9 +57,9 @@ message ResponseMessageStatus {
 
 message DeploymentStats {
   string message = 1;
-  double cpu_usage = 2;
-  uint64 memory_usage = 3;
-  uint64 memory_limit = 4;
+  optional double cpu_usage = 2;
+  optional uint64 memory_usage = 3;
+  optional uint64 memory_limit = 4;
 }
 
 service Pomegranate {
