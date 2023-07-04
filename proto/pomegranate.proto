@@ -3,27 +3,47 @@ package pomegranate;
 
 message StartDeploymentRequest {
   string deployment_uuid = 1;
+  string project_uuid = 2;
+  string user_uuid = 3;
 }
 
 message RestartDeploymentRequest {
   string deployment_uuid = 1;
+  string project_uuid = 2;
+  string user_uuid = 3;
 }
 
 message DeleteDeploymentRequest {
   string deployment_uuid = 1;
+  string project_uuid = 2;
+  string user_uuid = 3;
 }
 
 message StopDeploymentRequest {
   string deployment_uuid = 1;
+  string project_uuid = 2;
 }
 
 message DeploymentStatusRequest {
   string deployment_uuid = 1;
+  string project_uuid = 2;
 }
 
 message ApplyConfigDeploymentRequest {
   string deployment_uuid = 1;
-  string config = 2;
+  string project_uuid = 2;
+  string user_uuid = 3;
+  string config = 4;
+}
+
+message DeploymentLogRequest {
+  string deployment_uuid = 1;
+  string project_uuid = 2;
+}
+
+message DeploymentStatRequest {
+  string deployment_uuid = 1;
+  string project_uuid = 2;
 }
 
 message ResponseMessage {
@@ -35,11 +55,20 @@ message ResponseMessageStatus {
   string status = 2;
 }
 
+message DeploymentStats {
+  string message = 1;
+  string cpu_usage = 2;
+  string memory_usage = 3;
+  string memory_limit = 4;
+}
+
 service Pomegranate {
   rpc StartDeployment(StartDeploymentRequest) returns (ResponseMessage) {}
   rpc RestartDeployment(RestartDeploymentRequest) returns (ResponseMessage) {}
   rpc DeleteDeployment(DeleteDeploymentRequest) returns (ResponseMessage) {}
   rpc StopDeployment(StopDeploymentRequest) returns (ResponseMessage) {}
   rpc DeploymentStatus(DeploymentStatusRequest) returns (ResponseMessageStatus) {}
+  rpc DeploymentLog(DeploymentLogRequest) returns (ResponseMessage) {}
+  rpc DeploymentStat(DeploymentStatRequest) returns (DeploymentStats) {}
   rpc ApplyConfigDeployment(ApplyConfigDeploymentRequest) returns (ResponseMessage) {}
 }
