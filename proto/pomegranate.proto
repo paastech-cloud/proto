@@ -57,9 +57,9 @@ message ResponseMessageStatus {
 
 message DeploymentStats {
   string message = 1;
-  string cpu_usage = 2;
-  string memory_usage = 3;
-  string memory_limit = 4;
+  float cpu_usage = 2;
+  int64 memory_usage = 3;
+  int64 memory_limit = 4;
 }
 
 service Pomegranate {
@@ -68,7 +68,7 @@ service Pomegranate {
   rpc DeleteDeployment(DeleteDeploymentRequest) returns (ResponseMessage) {}
   rpc StopDeployment(StopDeploymentRequest) returns (ResponseMessage) {}
   rpc DeploymentStatus(DeploymentStatusRequest) returns (ResponseMessageStatus) {}
-  rpc DeploymentLog(DeploymentLogRequest) returns (ResponseMessage) {}
+  rpc DeploymentLog(DeploymentLogRequest) returns (stream ResponseMessage) {}
   rpc DeploymentStat(DeploymentStatRequest) returns (DeploymentStats) {}
   rpc ApplyConfigDeployment(ApplyConfigDeploymentRequest) returns (ResponseMessage) {}
 }
