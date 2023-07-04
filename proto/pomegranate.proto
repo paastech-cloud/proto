@@ -68,7 +68,7 @@ service Pomegranate {
   rpc DeleteDeployment(DeleteDeploymentRequest) returns (ResponseMessage) {}
   rpc StopDeployment(StopDeploymentRequest) returns (ResponseMessage) {}
   rpc DeploymentStatus(DeploymentStatusRequest) returns (ResponseMessageStatus) {}
-  rpc DeploymentLog(DeploymentLogRequest) returns (stream ResponseMessage) {}
+  rpc DeploymentLog(DeploymentLogRequest) returns (ResponseMessage) {}
   rpc DeploymentStat(DeploymentStatRequest) returns (DeploymentStats) {}
   rpc ApplyConfigDeployment(ApplyConfigDeploymentRequest) returns (ResponseMessage) {}
 }
