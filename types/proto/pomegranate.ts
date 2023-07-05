@@ -6,27 +6,47 @@ export const protobufPackage = "pomegranate";
 
 export interface StartDeploymentRequest {
   deployment_uuid: string;
+  project_uuid: string;
+  user_uuid: string;
 }
 
 export interface RestartDeploymentRequest {
   deployment_uuid: string;
+  project_uuid: string;
+  user_uuid: string;
 }
 
 export interface DeleteDeploymentRequest {
   deployment_uuid: string;
+  project_uuid: string;
+  user_uuid: string;
 }
 
 export interface StopDeploymentRequest {
   deployment_uuid: string;
+  project_uuid: string;
 }
 
 export interface DeploymentStatusRequest {
   deployment_uuid: string;
+  project_uuid: string;
 }
 
 export interface ApplyConfigDeploymentRequest {
   deployment_uuid: string;
+  project_uuid: string;
+  user_uuid: string;
   config: string;
+}
+
+export interface DeploymentLogRequest {
+  deployment_uuid: string;
+  project_uuid: string;
+}
+
+export interface DeploymentStatRequest {
+  deployment_uuid: string;
+  project_uuid: string;
 }
 
 export interface ResponseMessage {
@@ -36,6 +56,13 @@ export interface ResponseMessage {
 export interface ResponseMessageStatus {
   message: string;
   status: string;
+}
+
+export interface DeploymentStats {
+  message: string;
+  cpu_usage: number;
+  memory_usage: number;
+  memory_limit: number;
 }
 
 export const POMEGRANATE_PACKAGE_NAME = "pomegranate";
@@ -50,6 +77,10 @@ export interface PomegranateClient {
   stopDeployment(request: StopDeploymentRequest): Observable<ResponseMessage>;
 
   deploymentStatus(request: DeploymentStatusRequest): Observable<ResponseMessageStatus>;
+
+  deploymentLog(request: DeploymentLogRequest): Observable<ResponseMessage>;
+
+  deploymentStat(request: DeploymentStatRequest): Observable<DeploymentStats>;
 
   applyConfigDeployment(request: ApplyConfigDeploymentRequest): Observable<ResponseMessage>;
 }
@@ -75,6 +106,14 @@ export interface PomegranateController {
     request: DeploymentStatusRequest,
   ): Promise<ResponseMessageStatus> | Observable<ResponseMessageStatus> | ResponseMessageStatus;
 
+  deploymentLog(
+    request: DeploymentLogRequest,
+  ): Promise<ResponseMessage> | Observable<ResponseMessage> | ResponseMessage;
+
+  deploymentStat(
+    request: DeploymentStatRequest,
+  ): Promise<DeploymentStats> | Observable<DeploymentStats> | DeploymentStats;
+
   applyConfigDeployment(
     request: ApplyConfigDeploymentRequest,
   ): Promise<ResponseMessage> | Observable<ResponseMessage> | ResponseMessage;
@@ -88,6 +127,8 @@ export function PomegranateControllerMethods() {
       "deleteDeployment",
       "stopDeployment",
       "deploymentStatus",
+      "deploymentLog",
+      "deploymentStat",
       "applyConfigDeployment",
     ];
     for (const method of grpcMethods) {
