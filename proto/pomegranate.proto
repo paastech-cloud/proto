@@ -1,74 +1,67 @@
 syntax = "proto3";
 package pomegranate;
 
-message StartDeploymentRequest {
-  string deployment_uuid = 1;
-  string project_uuid = 2;
-  string user_uuid = 3;
+message DeployRequest {
+  string container_name = 1;
+  string image_name = 2;
+  string image_tag = 3;
+  map<string, string> env_vars = 4;
 }
 
-message RestartDeploymentRequest {
-  string deployment_uuid = 1;
-  string project_uuid = 2;
-  string user_uuid = 3;
+message StopDeployRequest {
+  string container_name = 1;
 }
 
-message DeleteDeploymentRequest {
-  string deployment_uuid = 1;
-  string project_uuid = 2;
-  string user_uuid = 3;
+message DeleteImageRequest {
+  string container_name = 1;
 }
 
-message StopDeploymentRequest {
-  string deployment_uuid = 1;
-  string project_uuid = 2;
+message GetLogsRequest {
+  string container_name = 1;
 }
 
-message DeploymentStatusRequest {
-  string deployment_uuid = 1;
-  string project_uuid = 2;
+message GetLogsResponse {
+  string logs = 1;
 }
 
-message ApplyConfigDeploymentRequest {
-  string deployment_uuid = 1;
-  string project_uuid = 2;
-  string user_uuid = 3;
-  string config = 4;
+message GetStatisticsRequest {
+  string container_name = 1;
 }
 
-message DeploymentLogRequest {
-  string deployment_uuid = 1;
-  string project_uuid = 2;
+message GetStatisticsResponse {
+  double cpu_usage = 1;
+  uint64 memory_usage = 2;
+  uint64 memory_limit = 3;
 }
 
-message DeploymentStatRequest {
-  string deployment_uuid = 1;
-  string project_uuid = 2;
+enum ContainerStatus {
+  STATUS_UNKNOWN = 0;
+  STATUS_STARTING = 1;
+  STATUS_RUNNING = 2;
+  STATUS_STOPPING = 3;
+  STATUS_STOPPED = 4;
 }
 
-message ResponseMessage {
-  string message = 1;
+message GetStatusRequest {
+  repeated string container_name = 1;
 }
 
-message ResponseMessageStatus {
-  string message = 1;
-  string status = 2;
+message GetStatusResponse {
+  message SingleContainerStatus {
+    string container_name = 1;
+    ContainerStatus container_status = 2;
+  }
+
+  repeated SingleContainerStatus container_statuses = 1;
 }
 
-message DeploymentStats {
-  string message = 1;
-  string cpu_usage = 2;
-  string memory_usage = 3;
-  string memory_limit = 4;
-}
+message EmptyResponse {}
 
 service Pomegranate {
-  rpc StartDeployment(StartDeploymentRequest) returns (ResponseMessage) {}
-  rpc RestartDeployment(RestartDeploymentRequest) returns (ResponseMessage) {}
-  rpc DeleteDeployment(DeleteDeploymentRequest) returns (ResponseMessage) {}
-  rpc StopDeployment(StopDeploymentRequest) returns (ResponseMessage) {}
-  rpc DeploymentStatus(DeploymentStatusRequest) returns (ResponseMessageStatus) {}
-  rpc DeploymentLog(DeploymentLogRequest) returns (ResponseMessage) {}
-  rpc DeploymentStat(DeploymentStatRequest) returns (DeploymentStats) {}
-  rpc ApplyConfigDeployment(ApplyConfigDeploymentRequest) returns (ResponseMessage) {}
+  rpc Deploy(DeployRequest) returns (EmptyResponse) {}
+  rpc StopDeploy(StopDeployRequest) returns (EmptyResponse) {}
+  rpc DeleteImage(DeleteImageRequest) returns (EmptyResponse) {}
+  rpc GetLogs(GetLogsRequest) returns (GetLogsResponse) {}
+  rpc GetStatistics(GetStatisticsRequest) returns (GetStatisticsResponse) {}
+  rpc GetStatus(GetStatusRequest) returns (GetStatusResponse) {}
 }

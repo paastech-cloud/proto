@@ -4,92 +4,104 @@ import { Observable } from "rxjs";
 
 export const protobufPackage = "pomegranate";
 
-export interface StartDeploymentRequest {
-  deployment_uuid: string;
+export enum ContainerStatus {
+  STATUS_UNKNOWN = 0,
+  STATUS_STARTING = 1,
+  STATUS_RUNNING = 2,
+  STATUS_STOPPING = 3,
+  STATUS_STOPPED = 4,
+  UNRECOGNIZED = -1,
 }
 
-export interface RestartDeploymentRequest {
-  deployment_uuid: string;
+export interface DeployRequest {
+  container_name: string;
+  image_name: string;
+  image_tag: string;
+  env_vars: { [key: string]: string };
 }
 
-export interface DeleteDeploymentRequest {
-  deployment_uuid: string;
+export interface DeployRequest_EnvVarsEntry {
+  key: string;
+  value: string;
 }
 
-export interface StopDeploymentRequest {
-  deployment_uuid: string;
+export interface StopDeployRequest {
+  container_name: string;
 }
 
-export interface DeploymentStatusRequest {
-  deployment_uuid: string;
+export interface DeleteImageRequest {
+  container_name: string;
 }
 
-export interface ApplyConfigDeploymentRequest {
-  deployment_uuid: string;
-  config: string;
+export interface GetLogsRequest {
+  container_name: string;
 }
 
-export interface ResponseMessage {
-  message: string;
+export interface GetLogsResponse {
+  logs: string;
 }
 
-export interface ResponseMessageStatus {
-  message: string;
-  status: string;
+export interface GetStatisticsRequest {
+  container_name: string;
+}
+
+export interface GetStatisticsResponse {
+  cpu_usage: number;
+  memory_usage: number;
+  memory_limit: number;
+}
+
+export interface GetStatusRequest {
+  container_name: string[];
+}
+
+export interface GetStatusResponse {
+  container_statuses: GetStatusResponse_SingleContainerStatus[];
+}
+
+export interface GetStatusResponse_SingleContainerStatus {
+  container_name: string;
+  container_status: ContainerStatus;
+}
+
+export interface EmptyResponse {
 }
 
 export const POMEGRANATE_PACKAGE_NAME = "pomegranate";
 
 export interface PomegranateClient {
-  startDeployment(request: StartDeploymentRequest): Observable<ResponseMessage>;
+  deploy(request: DeployRequest): Observable<EmptyResponse>;
 
-  restartDeployment(request: RestartDeploymentRequest): Observable<ResponseMessage>;
+  stopDeploy(request: StopDeployRequest): Observable<EmptyResponse>;
 
-  deleteDeployment(request: DeleteDeploymentRequest): Observable<ResponseMessage>;
+  deleteImage(request: DeleteImageRequest): Observable<EmptyResponse>;
 
-  stopDeployment(request: StopDeploymentRequest): Observable<ResponseMessage>;
+  getLogs(request: GetLogsRequest): Observable<GetLogsResponse>;
 
-  deploymentStatus(request: DeploymentStatusRequest): Observable<ResponseMessageStatus>;
+  getStatistics(request: GetStatisticsRequest): Observable<GetStatisticsResponse>;
 
-  applyConfigDeployment(request: ApplyConfigDeploymentRequest): Observable<ResponseMessage>;
+  getStatus(request: GetStatusRequest): Observable<GetStatusResponse>;
 }
 
 export interface PomegranateController {
-  startDeployment(
-    request: StartDeploymentRequest,
-  ): Promise<ResponseMessage> | Observable<ResponseMessage> | ResponseMessage;
+  deploy(request: DeployRequest): Promise<EmptyResponse> | Observable<EmptyResponse> | EmptyResponse;
 
-  restartDeployment(
-    request: RestartDeploymentRequest,
-  ): Promise<ResponseMessage> | Observable<ResponseMessage> | ResponseMessage;
+  stopDeploy(request: StopDeployRequest): Promise<EmptyResponse> | Observable<EmptyResponse> | EmptyResponse;
 
-  deleteDeployment(
-    request: DeleteDeploymentRequest,
-  ): Promise<ResponseMessage> | Observable<ResponseMessage> | ResponseMessage;
+  deleteImage(request: DeleteImageRequest): Promise<EmptyResponse> | Observable<EmptyResponse> | EmptyResponse;
 
-  stopDeployment(
-    request: StopDeploymentRequest,
-  ): Promise<ResponseMessage> | Observable<ResponseMessage> | ResponseMessage;
+  getLogs(request: GetLogsRequest): Promise<GetLogsResponse> | Observable<GetLogsResponse> | GetLogsResponse;
 
-  deploymentStatus(
-    request: DeploymentStatusRequest,
-  ): Promise<ResponseMessageStatus> | Observable<ResponseMessageStatus> | ResponseMessageStatus;
+  getStatistics(
+    request: GetStatisticsRequest,
+  ): Promise<GetStatisticsResponse> | Observable<GetStatisticsResponse> | GetStatisticsResponse;
 
-  applyConfigDeployment(
-    request: ApplyConfigDeploymentRequest,
-  ): Promise<ResponseMessage> | Observable<ResponseMessage> | ResponseMessage;
+  getStatus(request: GetStatusRequest): Promise<GetStatusResponse> | Observable<GetStatusResponse> | GetStatusResponse;
 }
 
 export function PomegranateControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = [
-      "startDeployment",
-      "restartDeployment",
-      "deleteDeployment",
-      "stopDeployment",
-      "deploymentStatus",
-      "applyConfigDeployment",
-    ];
+    const grpcMethods: string[] = ["deploy", "stopDeploy", "deleteImage", "getLogs", "getStatistics", "getStatus"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("Pomegranate", method)(constructor.prototype[method], method, descriptor);
