@@ -31,6 +31,8 @@ export interface StopDeployRequest {
 
 export interface DeleteImageRequest {
   container_name: string;
+  image_name: string;
+  image_tag: string;
 }
 
 export interface GetLogsRequest {
