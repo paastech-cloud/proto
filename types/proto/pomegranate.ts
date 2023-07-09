@@ -69,6 +69,13 @@ export interface GetStatusResponse_SingleContainerStatus {
 export interface EmptyResponse {
 }
 
+export interface DeploymentStats {
+  message: string;
+  cpu_usage: number;
+  memory_usage: number;
+  memory_limit: number;
+}
+
 export const POMEGRANATE_PACKAGE_NAME = "pomegranate";
 
 export interface PomegranateClient {
